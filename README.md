@@ -1,22 +1,17 @@
-# For WaveCreator Assignment.
+# WaveCreator Assignment.
 
-You should modify SinCreator.elm.
-
-It is called from Main.elm, but do not modify Main.elm.  Your submission must compile against the existing modules, with your new SinCreator.elm dropped in.
-
-Other modules can be referred to as examples.
-
-Submit your code on Avenue, with your names and student numbers.
-
-If you want to contribute your changes back to the main ShapeCreator, say so in a comment at the top of your module.
+The goal of the assignment is to improve a user interface which helps users generate Elm code for creating SVG graphics. The original user interface, before modification, can be viewed [here](http://www.cas.mcmaster.ca/~anand/ShapeCreate2.html). 
 
 # Installing Dependencies:
 
-elm init
-elm install MacCASOutreach/graphicsvg
+`elm init`
+
+`elm install MacCASOutreach/graphicsvg`
 
 # Building:
 
-elm make src/Main.elm
+`elm make src/Main.elm`
+
+`open ./index.html`
 
 
