@@ -1,5 +1,24 @@
 module SinCreator exposing (..)
+{- 
+Team Member Names and Student Numbers: Olivia Tinios (400034007), Navya Sachdeva (001426466), Songyi Jo (001300927)
 
+User: Someone who is new to learning how to code (i.e a beginner) and who is learning Elm for the first time. 
+More specifically, the user is a student in grade 7 who has not much of a background on mathematics.
+
+Activity: The user is trying to create an animation using Elm for the first time. They are using the Wave Creator to help
+generate code which can be used for their animation. 
+
+Emotion: The user feels nervous and unsure since they have no prior knowledge of Sine waves or how they work.
+
+Tasks: What tasks are part of this activity
+
+Typical Interaction: Describe a typical interaction of your user (the TAs will test this out, so include sufficient detail)
+
+Principle 1: First of Norman's principles and how it guided your design
+
+Principle 2: Second of Norman's principles and how it guided your design.
+
+-}
 {-
 Copyright 2017-2019 Christopher Kumar Anand,  Adele Olejarz, Chinmay Sheth, Yaminah Qureshi, Graeme Crawley and students of McMaster University.  Based on the Shape Creator by Levin Noronha.
 
