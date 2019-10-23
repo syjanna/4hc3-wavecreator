@@ -86,6 +86,7 @@ init =
     , trigCycleV = Sin
     , latestPointV = ( 0, 0, rgb 160 128 96 )
     , uTransform = ScaleU
+    , uShape = Circle
     , moveX = ZeroFun
     , moveY = UFunZero
     , moveX1 = UFunZero
@@ -101,6 +102,8 @@ init =
     , buttonDownTime = 0
     , transformsRightArrowTransp = 0.25
     , transformsLeftArrowTransp = 0.25
+    , shapesRightArrowTransp = 0.25
+    , shapesLeftArrowTransp = 0.25
 
     --, transformsNumTransp = 0.25
     , moveTextX = 0.25
@@ -151,6 +154,8 @@ type Msg m
       --| MoveX1
       --| MoveY1
       --| TransformsFunctionChange
+    | UShapes
+    | UShapesReverse
     | RScalePlus
     | RScaleMinus
     | GScalePlus
@@ -210,6 +215,11 @@ type Transforms
     | MakeTransparent
     | EditableXSin
 
+type Shapes
+    = Circle
+    | Square
+    | Rect
+    | Triangle
 
 type ButtonDir
     = AmplitudeUp
@@ -737,6 +747,12 @@ update msg model =
         UTransformsReverse ->
             { model | uTransform = cycleTransformsReverse model.uTransform }
 
+        UShapes ->
+            { model | uShape = cycleShapes model.uShape }
+
+        UShapesReverse ->
+            { model | uShape = cycleShapesReverse model.uShape }
+
         {-
            MoveX ->
                { model | moveX = cycleFunZero model.moveX }
@@ -1045,6 +1061,83 @@ applyTransformsYourCode model tr =
 
 
 
+-------------
+cycleShapes sh =
+    case sh of
+        Circle ->
+            Square
+
+        Square ->
+            Rect
+
+        Rect ->
+            Triangle
+
+        Triangle ->
+            Circle
+
+
+cycleShapesReverse sh =
+    case sh of
+        Circle ->
+            Triangle
+
+        Triangle ->
+            Rect
+
+        Rect ->
+            Square
+
+        Square ->
+            Circle
+
+
+applyShapes sh model =
+    case sh of
+        Circle ->
+            circle 10
+
+        Square ->
+            square 10
+
+        Rect ->
+            rect 10 15
+
+        Triangle ->
+            triangle 10
+
+
+applyShapesText sh =
+    case sh of
+        Circle ->
+            " circle "
+
+        Square ->
+            " square "
+
+        Rect ->
+            " rectangle "
+
+        Triangle ->
+            " triangle "
+
+
+applyShapesYourCode model sh =
+    case sh of
+        Circle ->
+            "circle 10"
+
+        Square ->
+            "square 10"
+
+        Rect ->
+            "rect 10 15"
+
+        Triangle ->
+            "triangle 10"
+
+
+
 -- change you app's state based on your new messages
 
 
@@ -1127,18 +1220,18 @@ view model =
                 [ rect 200 100 |> outlined (solid 1) red |> makeTransparent 0.25 |> move ( 100, 20 )
                 , copiable "--Add these new definitions to your code" |> move ( 0, 60 )
                 , copiable ("u = " ++ String.fromFloat model.uScale ++ "*" ++ textTrig model.trigCycleU ++ "(" ++ String.fromFloat model.uDilation ++ "*model.time+" ++ String.fromFloat model.uShift ++ ")") |> move ( 0, 50 )
-                , copiable "mySquare = square 15" |> move ( 0, 30 )
+                , copiable ("myShape = " ++ applyShapesYourCode model model.uShape) |> move ( 0, 30 )
                 , copiable ("  |> outlined (solid 0.25) rgb (" ++ String.fromFloat model.rScale ++ "*" ++ showFun model.rFun u v ++ " " ++ String.fromFloat model.gScale ++ "*" ++ showFun model.gFun u v ++ " " ++ String.fromFloat model.bScale ++ "*" ++ showFun model.bFun u v ++ ")") |> move ( 35, 20 )
                 , copiable ("  " ++ applyTransformsYourCode model model.uTransform) |> move ( 35, 10 )
                 , copiable ("  |> move(" ++ moveText model.moveX1 ++ "," ++ moveText model.moveY1 ++ ")") |> move ( 35, 0 )
-                , copiable "--Add the following code to your shapes:" |> move ( 0, -10 )
-                , copiable "mySquare" |> move ( 10, -20 )
+                --, copiable "--Add the following code to your shapes:" |> move ( 0, -10 )
+                --, copiable "mySquare" |> move ( 10, -20 )
                 ]
 
         transformsGraphicsGroup =
             group
                 [ rect 210 200 |> outlined (solid 1) red |> makeTransparent 0.25 |> move ( 45, 70 )
-                , square 15 |> outlined (solid 1) (rgb model.r model.g model.b) |> applyTransforms model.uTransform model |> move ( 45, 60 )
+                , (applyShapes model.uShape model) |> outlined (solid 1) (rgb model.r model.g model.b) |> applyTransforms model.uTransform model |> move ( 45, 60 )
                 , group
                     [ text (applyTransformsText model.uTransform) |> size 10 |> filled black |> move ( 4, 105 )
                     , triangle 8 |> filled (rgb 255 10 10) |> rotate (degrees 180) |> notifyTap UTransformsReverse |> move ( -70, 105 ) |> notifyLeave (TransM (\m -> { m | transformsLeftArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsLeftArrowTransp = 1 })) |> makeTransparent model.transformsLeftArrowTransp
@@ -1147,6 +1240,12 @@ view model =
                     --, text (moveText model.transformFun) |> size 10 |> filled black |> notifyTap TransformsFunctionChange |> move ( x1, 105 ) |> notifyLeave (TransM (\m -> { m | transformsNumTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsNumTransp = 1 })) |> makeTransparent model.transformsNumTransp
                     ]
                     |> move ( 30, 50 )
+                , group
+                    [ text (applyShapesText model.uShape) |> size 10 |> filled black |> move ( 4, 105 )
+                    , triangle 8 |> filled (rgb 255 10 10) |> rotate (degrees 180) |> notifyTap UShapesReverse |> move ( -70, 105 ) |> notifyLeave (TransM (\m -> { m | shapesLeftArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | shapesLeftArrowTransp = 1 })) |> makeTransparent model.shapesLeftArrowTransp
+                    , triangle 8 |> filled (rgb 255 10 10) |> notifyTap UShapes |> move ( 100, 105 ) |> notifyLeave (TransM (\m -> { m | shapesRightArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | shapesRightArrowTransp = 1 })) |> makeTransparent model.shapesRightArrowTransp
+                    ]
+                    |> move ( 30, -120 )
                 ]
 
         {-
