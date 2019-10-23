@@ -3,7 +3,7 @@ module SinCreator exposing (..)
 Team Member Names and Student Numbers: Olivia Tinios (400034007), Navya Sachdeva (001426466), Songyi Jo (001300927)
 
 User: Someone who is new to learning how to code (i.e a beginner) and who is learning Elm for the first time. 
-More specifically, the user is a student in grade 7 who has not much of a background on mathematics.
+More specifically, the user is a student in grade 7 who doesn't have much of a background on mathematics.
 
 Activity: The user is trying to create an animation using Elm for the first time. They are using the Wave Creator to help
 generate code which can be used for their animation. 
