@@ -1230,22 +1230,23 @@ view model =
 
         transformsGraphicsGroup =
             group
-                [ rect 210 200 |> outlined (solid 1) red |> makeTransparent 0.25 |> move ( 45, 70 )
+                [ rect 210 200 |> outlined (solid 1) red |> makeTransparent 0.25 |> move ( 45, 60 )
                 , (applyShapes model.uShape model) |> outlined (solid 1) (rgb model.r model.g model.b) |> applyTransforms model.uTransform model |> move ( 45, 60 )
-                , group
-                    [ text (applyTransformsText model.uTransform) |> size 10 |> filled black |> move ( 4, 105 )
-                    , triangle 8 |> filled (rgb 255 10 10) |> rotate (degrees 180) |> notifyTap UTransformsReverse |> move ( -70, 105 ) |> notifyLeave (TransM (\m -> { m | transformsLeftArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsLeftArrowTransp = 1 })) |> makeTransparent model.transformsLeftArrowTransp
-                    , triangle 8 |> filled (rgb 255 10 10) |> notifyTap UTransforms |> move ( 100, 105 ) |> notifyLeave (TransM (\m -> { m | transformsRightArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsRightArrowTransp = 1 })) |> makeTransparent model.transformsRightArrowTransp
+                ]
 
-                    --, text (moveText model.transformFun) |> size 10 |> filled black |> notifyTap TransformsFunctionChange |> move ( x1, 105 ) |> notifyLeave (TransM (\m -> { m | transformsNumTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsNumTransp = 1 })) |> makeTransparent model.transformsNumTransp
-                    ]
-                    |> move ( 30, 50 )
-                , group
-                    [ text (applyShapesText model.uShape) |> size 10 |> filled black |> move ( 4, 105 )
-                    , triangle 8 |> filled (rgb 255 10 10) |> rotate (degrees 180) |> notifyTap UShapesReverse |> move ( -70, 105 ) |> notifyLeave (TransM (\m -> { m | shapesLeftArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | shapesLeftArrowTransp = 1 })) |> makeTransparent model.shapesLeftArrowTransp
-                    , triangle 8 |> filled (rgb 255 10 10) |> notifyTap UShapes |> move ( 100, 105 ) |> notifyLeave (TransM (\m -> { m | shapesRightArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | shapesRightArrowTransp = 1 })) |> makeTransparent model.shapesRightArrowTransp
-                    ]
-                    |> move ( 30, -120 )
+        selectTransforms =
+            group
+                [ text (applyTransformsText model.uTransform) |> size 10 |> filled black |> move ( 4, 105 )
+                , triangle 8 |> filled (rgb 255 10 10) |> rotate (degrees 180) |> notifyTap UTransformsReverse |> move ( -70, 105 ) |> notifyLeave (TransM (\m -> { m | transformsLeftArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsLeftArrowTransp = 1 })) |> makeTransparent model.transformsLeftArrowTransp
+                , triangle 8 |> filled (rgb 255 10 10) |> notifyTap UTransforms |> move ( 100, 105 ) |> notifyLeave (TransM (\m -> { m | transformsRightArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsRightArrowTransp = 1 })) |> makeTransparent model.transformsRightArrowTransp
+                --, text (moveText model.transformFun) |> size 10 |> filled black |> notifyTap TransformsFunctionChange |> move ( x1, 105 ) |> notifyLeave (TransM (\m -> { m | transformsNumTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | transformsNumTransp = 1 })) |> makeTransparent model.transformsNumTransp
+                ]
+        
+        selectShapes = 
+            group
+                [ text (applyShapesText model.uShape) |> size 10 |> filled black |> move ( 4, 105 )
+                , triangle 8 |> filled (rgb 255 10 10) |> rotate (degrees 180) |> notifyTap UShapesReverse |> move ( -70, 105 ) |> notifyLeave (TransM (\m -> { m | shapesLeftArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | shapesLeftArrowTransp = 1 })) |> makeTransparent model.shapesLeftArrowTransp
+                , triangle 8 |> filled (rgb 255 10 10) |> notifyTap UShapes |> move ( 100, 105 ) |> notifyLeave (TransM (\m -> { m | shapesRightArrowTransp = 0.25 })) |> notifyEnter (TransM (\m -> { m | shapesRightArrowTransp = 1 })) |> makeTransparent model.shapesRightArrowTransp
                 ]
 
         {-
@@ -1308,21 +1309,20 @@ view model =
             group
                 [ line ( -50, 50 ) ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.25
                 , line ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) ( 0, 50 + model.uSinGraph ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.5
-                , line ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) ( model.uCosGraph - 50, 0 ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.5
+                --, line ( -50 + model.uScale * notTrigCycleU uArg, 50 + u ) ( model.uCosGraph - 50, 0 ) |> outlined (solid 1) (rgb model.r model.g model.b) |> makeTransparent 0.5
                 , circle 2 |> filled (rgb model.r model.g model.b) |> move ( 0, 50 + model.uSinGraph )
-                , circle 2 |> filled (rgb model.r model.g model.b) |> move ( model.uCosGraph - 50, 0 )
+                --, circle 2 |> filled (rgb model.r model.g model.b) |> move ( model.uCosGraph - 50, 0 )
                 , circle (abs uScale) |> outlined (solid 1) black |> move ( -50, 50 )
                 , circle 2 |> filled (rgb model.r model.g model.b) |> move ( -50 + model.uScale * notTrigCycleU uArg, 50 + u )
                 ]
 
         titlesText =
             group
-                [ tt "1. Modify your functions!" |> move ( -50, 175 )
-                , tt "2. Choose a colour!" |> move ( 140, 125 )
-                , tt "3. Apply Transforms!" |> move ( 140, 35 )
-                , tt "4. Move it!" |> move ( -220, 5 )
-                , text "--The move function below will be in 'Your Code!' " |> serif |> italic |> size 6 |> filled titleColour |> move ( -250, -5 )
-                , tt "5. Your Code!" |> move ( 40, -70 )
+                [ tt "1. Choose a shape!" |> move ( -225, 150 )
+                , tt "2. Apply a transformation!" |> move ( -225, 100 )
+                , tt "3. Adjust the wave!" |> move ( -225, 50 )
+                , tt "4. Copy your code!" |> move ( -225, -25 )
+                , tt "See the Results!" |> move ( 60, 75 )
                 ]
 
         cosLabel =
@@ -1330,17 +1330,19 @@ view model =
     in
     [ graphPaperCustom 10 1 (rgb 255 137 5) |> makeTransparent 0.25 -- axes and selected coordinate ticks
     , group
-        [ rect 1000 0.5 |> filled brown
-        , rect 0.5 1000 |> filled brown
-        , group (sinCurve model) |> move ( 0, 50 )
-        , group (cosCurve model) |> move ( -50, 0 )
+        [ --rect 1000 0.5 |> filled brown
+        --, rect 0.5 1000 |> filled brown
+        group (sinCurve model) |> move ( 0, 50 )
+        --, group (cosCurve model) |> move ( -50, 0 )
         , trigGraphAxis model |> move ( -185, 70 )
         , circleGraphics
         ]
-        |> move ( -140, 80 )
-    , titlesText |> makeTransparent 0
-    , cosLabel |> move ( -127, 67 )
-    , transformsGraphicsGroup |> move ( 0, -100 )
+        |> move ( 90, 80 )
+    , titlesText |> makeTransparent 1
+    --, cosLabel |> move ( -127, 67 )
+    , transformsGraphicsGroup |> move ( 60, -100 )
+    , selectTransforms |> move ( -155, -25 )
+    , selectShapes |> move ( -155, 25 )
 
     --, moveGraphicsX |> move ( 180, 220 )
     --, moveGraphicsY |> move ( 60, 50 )
@@ -1348,10 +1350,10 @@ view model =
         [ functionText model |> move ( 5, 150 )
         , setofTriangles |> move ( 0, 165 )
         ]
-        |> move ( -20, 15 )
+        |> move ( -115, -135 )
 
     --, rgbGraphics |> move ( 140, 90 )
-    , yourCodeGroup |> move ( 40, 110 )
+    , yourCodeGroup |> move ( -230, -110 )
     ]
 
 
@@ -1365,12 +1367,12 @@ downArrow =
 
 trigGraphAxis model =
     group
-        [ rect 0.5 105 |> filled black |> move ( 185, -18 )
+        [ rect 0.5 80 |> filled black |> move ( 185, -18 )
         , rect model.sinWaveLength 0.5 |> filled black |> move ( 185 + model.sinWaveLength / 2, -20 )
 
         -- Subtract 130 to account for the ratio of the screen and remove excess
-        , rect 105 0.5 |> filled black |> move ( 132, -70 )
-        , rect 0.5 model.cosWaveLength |> filled black |> move ( 135, -70 - model.cosWaveLength / 2 )
+        --, rect 105 0.5 |> filled black |> move ( 132, -70 )
+        --, rect 0.5 model.cosWaveLength |> filled black |> move ( 135, -70 - model.cosWaveLength / 2 )
         ]
 
 
