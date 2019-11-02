@@ -1,5 +1,39 @@
 module SinCreator exposing (..)
 
+{- template for your comment
+
+User: Who is your imagined user
+The imagined user is a 10 year old child in elementary school. Their class is visited by MacOutreach for an ELM programming workshop on Wave Creator. MacOutreach had previously visited this same class for a workshop with Shape Creator. As a 10 year old, they have no background knowledge of sine/cosine functions. 
+
+
+Activity: What activity is your user engaged in
+MacOutreach requires participants of the ELM programming workshop to play around with the Wave Creator module to get a desired animation. The workshop will also require applying code generated from the wave creator to the child's own ELM code (which they created during the previous workshop with Shape Creator).
+
+
+Emotion: How does your user feel about this activity
+The user may feel confused about this activity at first. They do not know about sine or cosine functions, and may feel intimidated by the relative complexity of it. At the same time, they may also feel excited that they will finally be able to make their shapes in their ELM code move.
+
+
+Tasks: What tasks are part of this activity
+The activity requires participants to play around with the Wave Creator module until they achieve a desired transformation for their shape(s) in their ELM code - they are able to preview the transformation with the square in the module. Once they get the desired animation, they will copy the code block generated from Wave Creator, then apply it to their own shapes in their ELM code.
+
+
+
+Typical Interaction: Describe a typical interaction of your user (the TAs will test this out, so include sufficient detail)
+The user will play around with the Wave Creator module. They will see the label, "1. Modify your function!" and know that that is the first step to using the module. They will attempt to press the triangle buttons in this section to see what each part does. They will discover that changing the first value of the sine function will make the animation bigger/smaller, changing the second value of the sine function will make it faster/slower, and changing the third value of the sine function will make it more left/right. They will know this through playing around with the buttons and by observing the mappings labels next to the buttons. Afterwards, they will see "2. Choose a Transformation and Preview it!" and know that that is the next step to using the module. They will click either of the triangle buttons to browse through the different transformations they can apply to the square. Once they have chosen a desired transformation for their ELM code, they will copy the code block from "3. Your Code" to the appropriate shape in their code.
+
+
+
+Principle 1: First of Norman's principles and how it guided your design
+The first Norman's principle that guided our design was Discoverability. The original design had elements of the program all over the interface and it was unclear where exactly to start in order to use the module. We improved the interface by adding step names to guide the user through the module. The step names are as follows: "1. Modify your function!", "2. Choose a Transformation and Preview it!" and "3. Your Code!". 
+
+
+Principle 2: Second of Norman's principles and how it guided your design.
+The second Norman's principle that guided our design was Mapping. Since the imagined user is a child with no background of sine/cosine functions, they will have little understanding of the effects of changing the values. They could play around with the values to get an idea but it would take too long to understand. To improve the child's understanding of this, we have added labels next to the triangle buttons to explain what they do in a concise way. ie, changing the amplitude makes the animation bigger/smaller, changing the frequency makes it faster/slower, and changing the offset will offset it more left/right.
+
+
+-}
+
 {-
 Copyright 2017-2019 Christopher Kumar Anand,  Adele Olejarz, Chinmay Sheth, Yaminah Qureshi, Graeme Crawley and students of McMaster University.  Based on the Shape Creator by Levin Noronha.
 
@@ -27,7 +61,11 @@ Copyright 2017-2019 Christopher Kumar Anand,  Adele Olejarz, Chinmay Sheth, Yami
 
    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR AN, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+
 -}
+
+
+
 
 import Array exposing (..)
 import GraphicSVG exposing (..)
@@ -1168,7 +1206,7 @@ view model =
                 --, polygon [ ( -6, 0 ), ( 6, 0 ), ( 0, 12 ) ] |> filled red |> makeTransparent 0.25 |> notifyTap VDilationPlus |> move ( 95, -5 )
                 --, polygon [ ( -6, 0 ), ( 6, 0 ), ( 0, 12 ) ] |> filled red |> makeTransparent 0.25 |> notifyTap VScaleMinus |> rotate (degrees 180) |> move ( 60, -20 ) |> notifyMouseDown (ButtonDown VDown) |> notifyMouseUp (ButtonDown None)
                 --, polygon [ ( -6, 0 ), ( 6, 0 ), ( 0, 12 ) ] |> filled red |> makeTransparent 0.25 |> notifyTap VDilationMinus |> rotate (degrees 180) |> move ( 95, -20 )
-                ]
+                ] |> makeTransparent 0.5
 
         rgbGraphics =
             group
@@ -1199,12 +1237,15 @@ view model =
 
         titlesText =
             group
-                [ tt "1. Modify your functions!" |> move ( -50, 175 )
-                , tt "2. Choose a colour!" |> move ( 140, 125 )
-                , tt "3. Apply Transforms!" |> move ( 140, 35 )
-                , tt "4. Move it!" |> move ( -220, 5 )
-                , text "--The move function below will be in 'Your Code!' " |> serif |> italic |> size 6 |> filled titleColour |> move ( -250, -5 )
-                , tt "5. Your Code!" |> move ( 40, -70 )
+                [ tt "1. Modify your function!" |> move ( -250, 180 )
+                , tt "2. Choose a Transformation and Preview it!" |> move ( -60, 70 )
+                , text "Bigger" |> serif |> italic |> size 6 |> filled titleColour |> move ( -152, 175 )
+                , text "Smaller" |> serif |> italic |> size 6 |> filled titleColour |> move ( -152, 150 )
+                , text "Faster" |> serif |> italic |> size 6 |> filled titleColour |> move ( -80, 175 )
+                , text "Slower" |> serif |> italic |> size 6 |> filled titleColour |> move ( -80, 150 )
+                , text "More left" |> serif |> italic |> size 6 |> filled titleColour |> move ( 3, 175 )
+                , text "More right" |> serif |> italic |> size 6 |> filled titleColour |> move ( 3, 150 )
+                , tt "3. Your Code!" |> move ( 40, 180 )
                 ]
 
         cosLabel =
@@ -1220,7 +1261,7 @@ view model =
         , circleGraphics
         ]
         |> move ( -140, 80 )
-    , titlesText |> makeTransparent 0
+    , titlesText 
     , cosLabel |> move ( -127, 67 )
     , transformsGraphicsGroup |> move ( 0, -100 )
 
