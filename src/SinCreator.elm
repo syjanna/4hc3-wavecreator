@@ -2,21 +2,27 @@ module SinCreator exposing (..)
 {- 
 Team Member Names and Student Numbers: Olivia Tinios (400034007), Navya Sachdeva (001426466), Songyi Jo (001300927)
 
-User: Someone who is new to learning how to code (i.e a beginner) and who is learning Elm for the first time. 
-More specifically, the user is a student in grade 7 who doesn't have much of a background on mathematics.
+User: Who is your imagined user
+The imagined user is a 10 year old child in elementary school. Their class is visited by MacOutreach for an ELM programming workshop on Wave Creator. MacOutreach had previously visited this same class for a workshop with Shape Creator. As a 10 year old, they have no background knowledge of sine/cosine functions. 
 
-Activity: The user is trying to create an animation using Elm for the first time. They are using the Wave Creator to help
-generate code which can be used for their animation. 
+Activity: What activity is your user engaged in
+MacOutreach requires participants of the ELM programming workshop to play around with the Wave Creator module to get a desired animation. The workshop will also require applying code generated from the wave creator to the child's own ELM code (which they created during the previous workshop with Shape Creator).
 
-Emotion: The user feels nervous and unsure since they have no prior knowledge of Sine waves or how they work.
+Emotion: How does your user feel about this activity
+The user may feel confused about this activity at first. They do not know about sine or cosine functions, and may feel intimidated by the relative complexity of it. At the same time, they may also feel excited that they will finally be able to make their shapes in their ELM code move.
 
 Tasks: What tasks are part of this activity
+The activity requires participants to play around with the Wave Creator module until they achieve a desired transformation for their shape(s) in their ELM code - they are able to preview the transformation with the square in the module. Once they get the desired animation, they will copy the code block generated from Wave Creator, then apply it to their own shapes in their ELM code.
 
 Typical Interaction: Describe a typical interaction of your user (the TAs will test this out, so include sufficient detail)
+The user will play around with the Wave Creator module. They will see the label, "1. Modify your function!" and know that that is the first step to using the module. They will attempt to press the triangle buttons in this section to see what each part does. They will discover that changing the first value of the sine function will make the animation bigger/smaller, changing the second value of the sine function will make it faster/slower, and changing the third value of the sine function will make it more left/right. They will know this through playing around with the buttons and by observing the mappings labels next to the buttons. Afterwards, they will see "2. Choose a Transformation and Preview it!" and know that that is the next step to using the module. They will click either of the triangle buttons to browse through the different transformations they can apply to the square. Once they have chosen a desired transformation for their ELM code, they will copy the code block from "3. Your Code" to the appropriate shape in their code.
 
 Principle 1: First of Norman's principles and how it guided your design
+The first Norman's principle that guided our design was Discoverability. The original design had elements of the program all over the interface and it was unclear where exactly to start in order to use the module. We improved the interface by rearranging the elements, and adding step names to guide the user through the module. The step names are as follows: "1. Choose a shape!", "2. Apply a transformation!" and "3. Adjust the wave!", "4.Copy your code!" and "See the Results!". By presenting each step of the module in a linear and numerical fashion, it allows the user to navigate through the module more easily.  
 
 Principle 2: Second of Norman's principles and how it guided your design.
+The second Norman's principle that guided our design was Mapping. Since the imagined user is a child with no background of sine/cosine functions, they will have little understanding of the effects of changing the values. They could play around with the values to get an idea but it would take too long to understand. To improve the child's understanding of this, we have added labels next to the triangle buttons to explain what they do in a concise way. ie, changing the amplitude makes the animation bigger/smaller, changing the frequency makes it faster/slower, and changing the offset will offset it more left/right.
+
 
 -}
 {-
@@ -1323,6 +1329,12 @@ view model =
                 , tt "3. Adjust the wave!" |> move ( -225, 50 )
                 , tt "4. Copy your code!" |> move ( -225, -25 )
                 , tt "See the Results!" |> move ( 60, 75 )
+                , text "Bigger" |> serif |> italic |> size 6 |> filled titleColour |> move ( -220, 30 )
+                , text "Smaller" |> serif |> italic |> size 6 |> filled titleColour |> move ( -220, 5 )
+                , text "Faster" |> serif |> italic |> size 6 |> filled titleColour |> move ( -175, 30 )
+                , text "Slower" |> serif |> italic |> size 6 |> filled titleColour |> move ( -175, 5)
+                , text "More left" |> serif |> italic |> size 6 |> filled titleColour |> move ( -90, 30 )
+                , text "More right" |> serif |> italic |> size 6 |> filled titleColour |> move ( -90, 5 )
                 ]
 
         cosLabel =
