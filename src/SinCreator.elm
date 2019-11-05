@@ -1,6 +1,6 @@
 module SinCreator exposing (..)
 
-{- template for your comment
+{- 
 
 User: Who is your imagined user
 The imagined user is a 10 year old child in elementary school. Their class is visited by MacOutreach for an ELM programming workshop on Wave Creator. MacOutreach had previously visited this same class for a workshop with Shape Creator. As a 10 year old, they have no background knowledge of sine/cosine functions. 
@@ -30,6 +30,9 @@ The first Norman's principle that guided our design was Discoverability. The ori
 
 Principle 2: Second of Norman's principles and how it guided your design.
 The second Norman's principle that guided our design was Mapping. Since the imagined user is a child with no background of sine/cosine functions, they will have little understanding of the effects of changing the values. They could play around with the values to get an idea but it would take too long to understand. To improve the child's understanding of this, we have added labels next to the triangle buttons to explain what they do in a concise way. ie, changing the amplitude makes the animation bigger/smaller, changing the frequency makes it faster/slower, and changing the offset will offset it more left/right.
+
+
+Members:
 
 
 -}
